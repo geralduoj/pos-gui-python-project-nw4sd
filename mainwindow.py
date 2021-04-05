@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter import *
 from tkinter.ttk import Treeview
 
-from classobjects import Laptop, Phone
+from classobjects import Laptop, Phone, Consoles, ConsoleGames, Television
 
 root = Tk()
 orders = []
@@ -19,296 +19,401 @@ def updatetable(orders):
 
 def adddelltotable():
     delllappyy = Laptop("Dell Laptop", 1000)
+    subtotal = 0
     for item in orders:
         if item.name == delllappyy.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     dellNames = [p for p in ordersname if p == "Dell Laptop"]
     if "Dell Laptop" not in dellNames:
+        delllappyy.subtotal = 1000
         orders.append(delllappyy)
         ordersname.append("Dell Laptop")
         updatetable(orders)
 
 
 def addasustotable():
+    subtotal = 0
     asuslappyy = Laptop("Asus Laptop", 800)
     for item in orders:
         if item.name == asuslappyy.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     asusNames = [p for p in ordersname if p == "Asus Laptop"]
     if "Asus Laptop" not in asusNames:
+        asuslappyy.subtotal = 800
         orders.append(asuslappyy)
         ordersname.append("Asus Laptop")
         updatetable(orders)
 
 
 def addiphone12totable():
+    subtotal = 0
     iphone12 = Phone("iPhone 12 Pro Max", 550)
     for item in orders:
         if item.name == iphone12.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "iPhone 12 Pro Max"]
     if "iPhone 12 Pro Max" not in itemNames:
+        iphone12.subtotal = 550
         orders.append(iphone12)
         ordersname.append("iPhone 12 Pro Max")
         updatetable(orders)
 
 
 def addiphone11totable():
+    subtotal = 0
     iphone11 = Phone("iPhone 11 Pro", 400)
     for item in orders:
         if item.name == iphone11.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "iPhone 11 Pro"]
     if "iPhone 11 Pro" not in itemNames:
+        iphone11.subtotal = 400
         orders.append(iphone11)
         ordersname.append("iPhone 11 Pro")
         updatetable(orders)
 
 
 def addsamsunggalaxytotable():
+    subtotal = 0
     samsunggalaxy = Phone("Samsung Galaxy Pro", 900)
     for item in orders:
         if item.name == samsunggalaxy.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "Samsung Galaxy Pro"]
     if "Samsung Galaxy Pro" not in itemNames:
+        samsunggalaxy.subtotal = 900
         orders.append(samsunggalaxy)
         ordersname.append("Samsung Galaxy Pro")
         updatetable(orders)
 
 
 def addps4totable():
-    ps4 = Phone("Play Station 4", 300)
+    subtotal = 0
+    ps4 = Consoles("Play Station 4", 300)
     for item in orders:
         if item.name == ps4.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "Play Station 4"]
     if "Play Station 4" not in itemNames:
+        ps4.subtotal = 300
         orders.append(ps4)
         ordersname.append("Play Station 4")
         updatetable(orders)
 
 
 def addxboxonetotable():
-    xboxone = Phone("XBOX ONE", 1000)
+    subtotal = 0
+    xboxone = Consoles("XBOX ONE", 1000)
     for item in orders:
         if item.name == xboxone.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "XBOX ONE"]
     if "XBOX ONE" not in itemNames:
+        xboxone.subtotal = 1000
         orders.append(xboxone)
         ordersname.append("XBOX ONE")
         updatetable(orders)
 
 
 def addps5totable():
-    ps5 = Phone("Play Station 5", 1100)
+    subtotal = 0
+    ps5 = Consoles("Play Station 5", 1100)
     for item in orders:
         if item.name == ps5.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "Play Station 5"]
     if "Play Station 5" not in itemNames:
+        ps5.subtotal = 1100
         orders.append(ps5)
         ordersname.append("Play Station 5")
         updatetable(orders)
 
 
 def addxbox360totable():
-    xbox360 = Phone("XBOX 360", 200)
+    subtotal = 0
+    xbox360 = Consoles("XBOX 360", 200)
     for item in orders:
         if item.name == xbox360.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "XBOX 360"]
     if "XBOX 360" not in itemNames:
+        xbox360.subtotal = 200
         orders.append(xbox360)
         ordersname.append("XBOX 360")
         updatetable(orders)
 
 
 def addlg55totable():
-    lg55 = Phone("LG 55inch TV", 780)
+    subtotal = 0
+    lg55 = Television("LG 55inch TV", 780)
     for item in orders:
         if item.name == lg55.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "LG 55inch TV"]
     if "LG 55inch TV" not in itemNames:
+        lg55.subtotal = 780
         orders.append(lg55)
         ordersname.append("LG 55inch TV")
         updatetable(orders)
 
 
 def addsamsung55totable():
-    samsung55 = Phone("Samsung 55inch TV", 780)
+    subtotal = 0
+    samsung55 = Television("Samsung 55inch TV", 780)
     for item in orders:
         if item.name == samsung55.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "Samsung 55inch TV"]
     if "Samsung 55inch TV" not in itemNames:
+        samsung55.subtotal = 780
         orders.append(samsung55)
         ordersname.append("Samsung 55inch TV")
         updatetable(orders)
 
 
 def addsharp55totable():
-    sharp55 = Phone("Sharp 40inch TV", 650)
+    subtotal = 0
+    sharp55 = Television("Sharp 40inch TV", 650)
     for item in orders:
         if item.name == sharp55.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "Sharp 40inch TV"]
     if "Sharp 40inch TV" not in itemNames:
+        sharp55.subtotal = 650
         orders.append(sharp55)
         ordersname.append("Sharp 40inch TV")
         updatetable(orders)
 
 
 def addrca55totable():
-    rca55 = Phone("RCA 40inch TV", 650)
+    subtotal = 0
+    rca55 = Television("RCA 40inch TV", 650)
     for item in orders:
         if item.name == rca55.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "RCA 40inch TV"]
     if "RCA 40inch TV" not in itemNames:
+        rca55.subtotal = 650
         orders.append(rca55)
         ordersname.append("RCA 40inch TV")
         updatetable(orders)
 
 
 def addtcl55totable():
-    tcl55 = Phone("TCL 20inch TV", 230)
+    subtotal = 0
+    tcl55 = Television("TCL 20inch TV", 230)
     for item in orders:
         if item.name == tcl55.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "TCL 20inch TV"]
     if "TCL 20inch TV" not in itemNames:
+        tcl55.subtotal = 230
         orders.append(tcl55)
         ordersname.append("TCL 20inch TV")
         updatetable(orders)
 
 
 def addfifa20totable():
-    fifa20 = Phone("Fifa 20", 20)
+    subtotal = 0
+    fifa20 = ConsoleGames("Fifa 20", 20)
     for item in orders:
         if item.name == fifa20.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "Fifa 20"]
     if "Fifa 20" not in itemNames:
+        fifa20.subtotal = 20
         orders.append(fifa20)
         ordersname.append("Fifa 20")
         updatetable(orders)
 
 
 def addfifa21totable():
-    fifa21 = Phone("Fifa 21", 90)
+    subtotal = 0
+    fifa21 = ConsoleGames("Fifa 21", 90)
     for item in orders:
         if item.name == fifa21.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "Fifa 21"]
     if "Fifa 21" not in itemNames:
+        fifa21.subtotal = 90
         orders.append(fifa21)
         ordersname.append("Fifa 21")
         updatetable(orders)
 
 
 def addnba2k20totable():
-    nba2k20 = Phone("NBA 2K 20", 20)
+    subtotal = 0
+    nba2k20 = ConsoleGames("NBA 2K 20", 20)
     for item in orders:
         if item.name == nba2k20.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "NBA 2K 20"]
     if "NBA 2K 20" not in itemNames:
+        nba2k20.subtotal = 20
         orders.append(nba2k20)
         ordersname.append("NBA 2K 20")
         updatetable(orders)
 
 
 def addnba2k21totable():
-    nba2k21 = Phone("NBA 2K 21", 50)
+    subtotal = 0
+    nba2k21 = ConsoleGames("NBA 2K 21", 50)
     for item in orders:
         if item.name == nba2k21.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "NBA 2K 21"]
     if "NBA 2K 21" not in itemNames:
+        nba2k21.subtotal = 50
         orders.append(nba2k21)
         ordersname.append("NBA 2K 21")
         updatetable(orders)
 
 
 def addcodbopstotable():
-    codbops = Phone("COD Black Ops 2", 10)
+    subtotal = 0
+    codbops = ConsoleGames("COD Black Ops 2", 10)
     for item in orders:
         if item.name == codbops.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "COD Black Ops 2"]
     if "COD Black Ops 2" not in itemNames:
+        codbops.subtotal = 10
         orders.append(codbops)
         ordersname.append("COD Black Ops 2")
         updatetable(orders)
 
 
 def addcodmwtotable():
-    codmw = Phone("COD MW 2", 24)
+    subtotal = 0
+    codmw = ConsoleGames("COD MW 2", 24)
     for item in orders:
         if item.name == codmw.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "COD MW 2"]
     if "COD MW 2" not in itemNames:
+        codmw.subtotal = 24
         orders.append(codmw)
         ordersname.append("COD MW 2")
         updatetable(orders)
 
 
 def addcodcoldwartotable():
-    codcoldwar = Phone("COD Cold War", 100)
+    subtotal = 0
+    codcoldwar = ConsoleGames("COD Cold War", 100)
     for item in orders:
         if item.name == codcoldwar.name:
             item.quantity += 1
+            subtotal += item.quantity * item.price
+            item.subtotal = subtotal
             updatetable(orders)
 
     itemNames = [p for p in ordersname if p == "COD Cold War"]
     if "COD Cold War" not in itemNames:
+        codcoldwar.subtotal = 100
         orders.append(codcoldwar)
         ordersname.append("COD Cold War")
         updatetable(orders)
+
+
+def calculateQTY():
+    totalqty = 0
+    for item in orders:
+        totalqty += item.quantity
+    totalitemsqtyLABEL.config(text=str(totalqty))
+
+    subtotal = 0
+    for item in orders:
+        subtotal += item.subtotal
+    totalallsubamtLABEL.config(text=str(subtotal))
+    taxTotaltxtLABEL.config(text=str(round(subtotal*0.13,2)))
+    grandtotalalltxtLABEL.config(text=str(round(subtotal*0.13,2)+subtotal))
+
+
+def calculateSubTotal():
+    subtotal = 0
+    for item in orders:
+        subtotal += item.subtotal
+    totalallsubamtLABEL.config(text=str(subtotal))
 
 
 wrapper1 = LabelFrame(root, text="Items")
@@ -361,6 +466,29 @@ codmw2tvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', tex
 codmw2tvBTN.grid(row=3,column=5)
 codcoldwartvBTN = Button(wrapper1, width=13, height=5, fg='white', bg='#FF5733', text="COD Cold War", command=addcodcoldwartotable)
 codcoldwartvBTN.grid(row=3,column=6)
+
+totalitemsLABEL = Label(wrapper3, text="Total Items:")
+totalitemsLABEL.grid(row=1,column=1)
+totalitemsqtyLABEL = Label(wrapper3, text="0")
+totalitemsqtyLABEL.grid(row=1,column=2)
+
+totalallLABEL = Label(wrapper3, text="Sub Total:")
+totalallLABEL.grid(row=2,column=1)
+totalallsubamtLABEL = Label(wrapper3, text="0")
+totalallsubamtLABEL.grid(row=2,column=2)
+
+taxTotalLABEL = Label(wrapper3, text="HST (13%):")
+taxTotalLABEL.grid(row=3,column=1)
+taxTotaltxtLABEL = Label(wrapper3, text="0")
+taxTotaltxtLABEL.grid(row=3,column=2)
+
+grandtotalallLABEL = Label(wrapper3, text="Grand Total:")
+grandtotalallLABEL.grid(row=4,column=1)
+grandtotalalltxtLABEL = Label(wrapper3, text="0")
+grandtotalalltxtLABEL.grid(row=4,column=2)
+
+generateReceiptBTN = Button(wrapper3, fg='white', bg='#17B14D', text="Generate Receipt", command=calculateQTY)
+generateReceiptBTN.grid(row=4,column=5)
 
 trv = Treeview(wrapper2, columns=(1, 2, 3, 4), show="headings", height="10")
 trv.pack()

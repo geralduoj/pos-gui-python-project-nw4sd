@@ -3,9 +3,7 @@ class Laptop:
         self.name = name
         self.quantity = 1
         self.price = price
-
-    def getQuantity(self):
-        return self.quantity
+        self.subtotal = 0
 
 
 class Phone:
@@ -13,9 +11,7 @@ class Phone:
         self.name = name
         self.quantity = 1
         self.price = price
-
-    def getQuantity(self):
-        return self.quantity
+        self.subtotal = 0
 
 
 class Consoles:
@@ -23,9 +19,7 @@ class Consoles:
         self.name = name
         self.quantity = 1
         self.price = price
-
-    def getQuantity(self):
-        return self.quantity
+        self.subtotal = 0
 
 
 class Television:
@@ -33,9 +27,7 @@ class Television:
         self.name = name
         self.quantity = 1
         self.price = price
-
-    def getQuantity(self):
-        return self.quantity
+        self.subtotal = 0
 
 
 class ConsoleGames:
@@ -43,6 +35,4 @@ class ConsoleGames:
         self.name = name
         self.quantity = 1
         self.price = price
-
-    def getQuantity(self):
-        return self.quantity
+        self.subtotal = 0
