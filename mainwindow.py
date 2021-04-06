@@ -408,6 +408,13 @@ def calculateQTY():
     taxTotaltxtLABEL.config(text=str(round(subtotal*0.13,2)))
     grandtotalalltxtLABEL.config(text=str(round(subtotal*0.13,2)+subtotal))
 
+    global receipt
+    receipt = Toplevel(root)
+    receipt.title("Receipt")
+    receipt.geometry("350x400")
+    receipt.config(bg="white")
+#Popup receipt window. I will finish it tomorrow - Monica
+
 
 def calculateSubTotal():
     subtotal = 0
