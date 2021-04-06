@@ -446,6 +446,10 @@ def calculateQTY():
     receiptDetails.heading(2, text="Quantity")
     receiptDetails.heading(3, text="Price")
     receiptDetails.heading(4, text="Subtotal per Product")
+
+    receiptDetails.delete(*receiptDetails.get_children())
+    for i in orders:
+        receiptDetails.insert('', 'end', values=(i.name, i.quantity, i.price, (i.quantity * i.price)))
     
     totalitemsReceipt = Label(totalsFrame, text="Total Items:")
     totalitemsReceipt.grid(row=0,column=1)
@@ -475,13 +479,6 @@ def calculateQTY():
     
     printBTN = Button(optionsFrame, fg='black', bg='yellow', text="Print",width=30,height=2)
     printBTN.grid(row=1,column=2)
-
-
-def calculateSubTotal():
-    subtotal = 0
-    for item in orders:
-        subtotal += item.subtotal
-    totalallsubamtLABEL.config(text=str(subtotal))
 
 
 wrapper1 = LabelFrame(root, text="Items")
