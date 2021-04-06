@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 from tkinter.ttk import Treeview
+import datetime as dt
 
 from classobjects import Laptop, Phone, Consoles, ConsoleGames, Television
 
@@ -407,13 +408,73 @@ def calculateQTY():
     totalallsubamtLABEL.config(text=str(subtotal))
     taxTotaltxtLABEL.config(text=str(round(subtotal*0.13,2)))
     grandtotalalltxtLABEL.config(text=str(round(subtotal*0.13,2)+subtotal))
-
+    
     global receipt
     receipt = Toplevel(root)
     receipt.title("Receipt")
-    receipt.geometry("350x400")
+    receipt.geometry("800x500")
     receipt.config(bg="white")
-#Popup receipt window. I will finish it tomorrow - Monica
+    
+    infoFrame = Frame(receipt)
+    itemsFrame = Frame(receipt)
+    totalsFrame = Frame(receipt)
+    optionsFrame = Frame(receipt)
+    
+    infoFrame.pack(expand="no", padx=20, pady=10)
+    itemsFrame.pack(fill="both", expand="no", padx=20, pady=10)
+    totalsFrame.pack(expand="no")
+    optionsFrame.pack(expand="yes", padx=20, pady=10)
+    
+    labelSimplePOS = Label(infoFrame,text='Simple POS',font='Times 16 bold')
+    labelSimplePOS.grid(row = 0, column = 1)
+    
+    labelAddress = Label(infoFrame,text = "My Shop Lot,Shopping Mall, Post Code, City",font = "Times 11")
+    labelAddress.grid(row=1, column = 1)
+    
+    labelTelephone = Label(infoFrame,text = "Tel:0105292122",font = "Times 11")
+    labelTelephone.grid(row=2, column =0)
+    
+    labelReceiptNumber = Label(infoFrame,text = "Sale Number:5",font = "Times 11")
+    labelReceiptNumber.grid(row=2,column=2)
+    
+    labelDate = Label(infoFrame,text=f"Date:{dt.datetime.now():%a, %b %d %Y}",font = "Times 11")
+    labelDate.grid(row=3,column=0)
+    
+    receiptDetails = Treeview(itemsFrame, columns=(1, 2, 3, 4), show="headings", height="10")
+    receiptDetails.pack()
+    receiptDetails.heading(1, text="Product")
+    receiptDetails.heading(2, text="Quantity")
+    receiptDetails.heading(3, text="Price")
+    receiptDetails.heading(4, text="Subtotal per Product")
+    
+    totalitemsReceipt = Label(totalsFrame, text="Total Items:")
+    totalitemsReceipt.grid(row=0,column=1)
+    totalitemsqtyReceipt = Label(totalsFrame, text=str(totalqty))
+    totalitemsqtyReceipt.grid(row=0,column=2)
+    
+    totalallReceipt = Label(totalsFrame, text="Sub Total:")
+    totalallReceipt.grid(row=0,column=3)
+    totalallsubamtReceipt = Label(totalsFrame, text=str(subtotal))
+    totalallsubamtReceipt.grid(row=0,column=4)
+    
+    taxTotalReceipt = Label(totalsFrame, text="HST (13%):")
+    taxTotalReceipt.grid(row=1,column=1)
+    taxTotaltxtReceipt = Label(totalsFrame, text=str(round(subtotal*0.13,2)))
+    taxTotaltxtReceipt.grid(row=1,column=2)
+    
+    grandtotalallReceipt = Label(totalsFrame, text="Grand Total:")
+    grandtotalallReceipt.grid(row=1,column=3)
+    grandtotalalltxtReceipt = Label(totalsFrame, text=str(round(subtotal*0.13,2)+subtotal))
+    grandtotalalltxtReceipt.grid(row=1,column=4)
+    
+    labelThankYou = Label(optionsFrame,text='Thank you for your business!',font='Times 16 bold')
+    labelThankYou.grid(row = 0, column = 1)
+    
+    emailBTN = Button(optionsFrame, fg='black', bg='green', text="EMAIL", width=30,height=2)
+    emailBTN.grid(row=1,column=0)
+    
+    printBTN = Button(optionsFrame, fg='black', bg='yellow', text="Print",width=30,height=2)
+    printBTN.grid(row=1,column=2)
 
 
 def calculateSubTotal():
@@ -503,7 +564,6 @@ trv.heading(1, text="Product")
 trv.heading(2, text="Quantity")
 trv.heading(3, text="Price")
 trv.heading(4, text="Subtotal per Product")
-
 
 root.title("POS System")
 root.geometry("850x700")
