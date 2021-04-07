@@ -6,6 +6,17 @@ import datetime as dt
 
 from classobjects import Laptop, Phone, Consoles, ConsoleGames, Television
 
+splash_root = Tk()
+splash_root.title("Welcome to: Start My Apps!")
+splash_root.geometry("700x700")
+
+splash_label = Label(
+    splash_root, text="Welcome to Online POS", font='times 20 bold', bg="white")
+splash_label.pack(pady=20)
+
+splash_root.after(800,splash_root.destroy) #after(ms,func)
+splash_root.mainloop()
+
 root = Tk()
 orders = []
 ordersname = []
@@ -475,7 +486,6 @@ def calculateQTY():
     
     printBTN = Button(optionsFrame, fg='black', bg='yellow', text="Print",width=30,height=2)
     printBTN.grid(row=1,column=2)
-
 
 def calculateSubTotal():
     subtotal = 0
