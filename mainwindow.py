@@ -9,7 +9,7 @@ from classobjects import Laptop, Phone, Consoles, ConsoleGames, Television
 
 
 
-#orders.append(delllappy)
+
 
 splash_screen = Tk()
 
@@ -31,9 +31,12 @@ def splash():
 splash_screen.after(1000,splash)
 
 root = Tk()
+root.resizable(width=False, height=False)
 
 orders = []
 ordersname = []
+#orders.append(delllappy)
+
 def updatetable(orders):
     trv.delete(*trv.get_children())
     for i in orders:
@@ -508,15 +511,18 @@ def clearcart():
     totalqty = 0
     for item in orders:
         totalqty = 0
+
     totalitemsqtyLABEL.config(text=str(totalqty))
 
     subtotal = 0
     for item in orders:
         subtotal = 0
-    totalallsubamtLABEL.config(text=(subtotal))
-    taxTotaltxtLABEL.config(text=subtotal)
-    grandtotalalltxtLABEL.config(text=(subtotal)+subtotal)
-    #Clear cart items - will do later - monica
+
+        totalallsubamtLABEL.config(text=(subtotal))
+        taxTotaltxtLABEL.config(text=subtotal)
+        grandtotalalltxtLABEL.config(text=(subtotal)+subtotal)
+        #Clear cart items - will do later - monica
+
 
 wrapper1 = LabelFrame(root, text="Items")
 wrapper2 = LabelFrame(root, text="Orders")
