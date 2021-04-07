@@ -7,12 +7,7 @@ import glob
 
 from classobjects import Laptop, Phone, Consoles, ConsoleGames, Television
 
-
-
-
-
 splash_screen = Tk()
-
 
 splash_screen.geometry("850x700")
 splash_screen['background']='#64ceff'
