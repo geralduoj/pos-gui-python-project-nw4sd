@@ -28,7 +28,7 @@ label.place(relx = 0.5, rely = 0.5, anchor = 'center')
 def splash():
     splash_screen.destroy()
 
-splash_screen.after(2000,splash)
+splash_screen.after(1000,splash)
 
 root = Tk()
 
@@ -417,6 +417,7 @@ def addcodcoldwartotable():
         ordersname.append("COD Cold War")
         updatetable(orders)
 
+    
 
 def calculateQTY():
     totalqty = 0
@@ -503,6 +504,20 @@ def calculateQTY():
     printBTN.grid(row=1,column=2)
 
 
+def clearcart():
+    totalqty = 0
+    for item in orders:
+        totalqty = 0
+    totalitemsqtyLABEL.config(text=str(totalqty))
+
+    subtotal = 0
+    for item in orders:
+        subtotal = 0
+    totalallsubamtLABEL.config(text=(subtotal))
+    taxTotaltxtLABEL.config(text=subtotal)
+    grandtotalalltxtLABEL.config(text=(subtotal)+subtotal)
+    #Clear cart items - will do later - monica
+
 wrapper1 = LabelFrame(root, text="Items")
 wrapper2 = LabelFrame(root, text="Orders")
 wrapper3 = LabelFrame(root, text="Totals")
@@ -576,6 +591,9 @@ grandtotalalltxtLABEL.grid(row=4,column=2)
 
 generateReceiptBTN = Button(wrapper3, fg='white', bg='#17B14D', text="Generate Receipt", command=calculateQTY)
 generateReceiptBTN.grid(row=4,column=5)
+
+clearcartBTN = Button(wrapper3, fg='white', bg='#17B14D', text="Clear Cart", command=clearcart)
+clearcartBTN.grid(row=4, column=6, padx=20,pady=10)
 
 trv = Treeview(wrapper2, columns=(1, 2, 3, 4), show="headings", height="10")
 trv.pack()
