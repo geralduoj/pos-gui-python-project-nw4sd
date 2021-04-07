@@ -3,15 +3,37 @@ from tkinter import ttk
 from tkinter import *
 from tkinter.ttk import Treeview
 import datetime as dt
+import glob
 
 from classobjects import Laptop, Phone, Consoles, ConsoleGames, Television
 
-root = Tk()
-orders = []
-ordersname = []
+
+
 #orders.append(delllappy)
 
+splash_screen = Tk()
 
+
+splash_screen.geometry("850x700")
+splash_screen['background']='#64ceff'
+splash_screen.overrideredirect(True)
+
+label = Label(splash_screen, text="Centennial College\n POS System")
+label.configure(foreground="white",font=("connecticut",60))
+label['background']='#64ceff'
+label.pack()
+
+label.place(relx = 0.5, rely = 0.5, anchor = 'center')
+
+def splash():
+    splash_screen.destroy()
+
+splash_screen.after(2000,splash)
+
+root = Tk()
+
+orders = []
+ordersname = []
 def updatetable(orders):
     trv.delete(*trv.get_children())
     for i in orders:
