@@ -3,25 +3,34 @@ from tkinter import ttk
 from tkinter import *
 from tkinter.ttk import Treeview
 import datetime as dt
+import glob
 
 from classobjects import Laptop, Phone, Consoles, ConsoleGames, Television
 
-splash_root = Tk()
-splash_root.title("Welcome to: Start My Apps!")
-splash_root.geometry("700x700")
+splash_screen = Tk()
 
-splash_label = Label(
-    splash_root, text="Welcome to Online POS", font='times 20 bold', bg="white")
-splash_label.pack(pady=20)
+splash_screen.geometry("850x700")
+splash_screen['background']='#64ceff'
+splash_screen.overrideredirect(True)
 
-splash_root.after(800,splash_root.destroy) #after(ms,func)
-splash_root.mainloop()
+label = Label(splash_screen, text="Centennial College\n POS System")
+label.configure(foreground="white",font=("connecticut",60))
+label['background']='#64ceff'
+label.pack()
+
+label.place(relx = 0.5, rely = 0.5, anchor = 'center')
+
+def splash():
+    splash_screen.destroy()
+
+splash_screen.after(1500,splash)
 
 root = Tk()
+root.resizable(width=False, height=False)
+
 orders = []
 ordersname = []
 #orders.append(delllappy)
-
 
 def updatetable(orders):
     trv.delete(*trv.get_children())
@@ -406,6 +415,7 @@ def addcodcoldwartotable():
         ordersname.append("COD Cold War")
         updatetable(orders)
 
+    
 
 def calculateQTY():
     totalqty = 0
@@ -457,6 +467,10 @@ def calculateQTY():
     receiptDetails.heading(2, text="Quantity")
     receiptDetails.heading(3, text="Price")
     receiptDetails.heading(4, text="Subtotal per Product")
+
+    receiptDetails.delete(*receiptDetails.get_children())
+    for i in orders:
+        receiptDetails.insert('', 'end', values=(i.name, i.quantity, i.price, (i.quantity * i.price)))
     
     totalitemsReceipt = Label(totalsFrame, text="Total Items:")
     totalitemsReceipt.grid(row=0,column=1)
@@ -487,11 +501,22 @@ def calculateQTY():
     printBTN = Button(optionsFrame, fg='black', bg='yellow', text="Print",width=30,height=2)
     printBTN.grid(row=1,column=2)
 
-def calculateSubTotal():
+
+def clearcart():
+    totalqty = 0
+    for item in orders:
+        totalqty = 0
+
+    totalitemsqtyLABEL.config(text=str(totalqty))
+
     subtotal = 0
     for item in orders:
-        subtotal += item.subtotal
-    totalallsubamtLABEL.config(text=str(subtotal))
+        subtotal = 0
+
+        totalallsubamtLABEL.config(text=(subtotal))
+        taxTotaltxtLABEL.config(text=subtotal)
+        grandtotalalltxtLABEL.config(text=(subtotal)+subtotal)
+        #Clear cart items - will do later - monica
 
 
 wrapper1 = LabelFrame(root, text="Items")
@@ -502,47 +527,47 @@ wrapper1.pack(fill="both", expand="no", padx=20, pady=10)
 wrapper2.pack(fill="both", expand="no", padx=20, pady=10)
 wrapper3.pack(fill="both", expand="yes", padx=20, pady=10)
 
-asuslaptopBTN = Button(wrapper1, width=15, height=5, text="Asus Laptop\n$800", fg='white', bg='#FF5733', command=addasustotable)
+asuslaptopBTN = Button(wrapper1, width=15, height=5, text="Asus Laptop\n$800", fg='white', bg='#fa3a3a', font=('arial', 8,'bold'),command=addasustotable)
 asuslaptopBTN.grid(row=1,column=0)
-delllaptopBTN = Button(wrapper1, width=10, height=5, fg='white', bg='#FF5733', text="Dell Laptop\n$1000", command=adddelltotable)
+delllaptopBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="Dell Laptop\n$1000", font=('arial', 8,'bold'),command=adddelltotable)
 delllaptopBTN.grid(row=1,column=1)
-iphone12BTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', text="iPhone 12 Pro Max\n$550", command=addiphone12totable)
+iphone12BTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="iPhone 12 Pro Max\n$550", font=('arial', 8,'bold'),command=addiphone12totable)
 iphone12BTN.grid(row=1,column=2)
-samsungGalaxyBTN = Button(wrapper1, width=19, height=5, fg='white', bg='#FF5733', text="Samsung Galaxy Pro\n$900", command=addsamsunggalaxytotable)
+samsungGalaxyBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a',  text="Samsung Galaxy Pro\n$900",font=('arial', 8,'bold'), command=addsamsunggalaxytotable)
 samsungGalaxyBTN.grid(row=1,column=3)
-iphone12BTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', text="iPhone 11 Pro\n$400", command=addiphone11totable)
+iphone12BTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="iPhone 11 Pro\n$400", font=('arial', 8,'bold'), command=addiphone11totable)
 iphone12BTN.grid(row=1,column=4)
-ps4BTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', text="Play Station 4\n$300", command=addps4totable)
+ps4BTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="Play Station 4\n$300", font=('arial', 8,'bold'),command=addps4totable)
 ps4BTN.grid(row=1,column=5)
-xboxoneBTN = Button(wrapper1, width=13, height=5, fg='white', bg='#FF5733', text="XBOX ONE\n$1000", command=addxboxonetotable)
+xboxoneBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="XBOX ONE\n$1000", font=('arial', 8,'bold'),command=addxboxonetotable)
 xboxoneBTN.grid(row=1,column=6)
-ps5BTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', text="Play Station 5\n$1100", command=addps5totable)
+ps5BTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="Play Station 5\n$1100", font=('arial', 8,'bold'),command=addps5totable)
 ps5BTN.grid(row=2,column=0)
-xbox360BTN = Button(wrapper1, width=10, height=5, fg='white', bg='#FF5733', text="XBOX 360\n$200", command=addxbox360totable)
+xbox360BTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="XBOX 360\n$200", font=('arial', 8,'bold'),command=addxbox360totable)
 xbox360BTN.grid(row=2,column=1)
-lgtvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', text="LG 55inch TV\n$780", command=addlg55totable)
+lgtvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="LG 55inch TV\n$780", font=('arial', 8,'bold'),command=addlg55totable)
 lgtvBTN.grid(row=2,column=2)
-samsungtvBTN = Button(wrapper1, width=19, height=5, fg='white', bg='#FF5733', text="Samsung 55inch TV\n$780", command=addsamsung55totable)
+samsungtvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="Samsung 55inch TV\n$780", font=('arial', 8,'bold'),command=addsamsung55totable)
 samsungtvBTN.grid(row=2,column=3)
-sharptvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', text="Sharp 40inch TV\nn$650", command=addsharp55totable)
+sharptvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="Sharp 40inch TV\nn$650", font=('arial', 8,'bold'), command=addsharp55totable)
 sharptvBTN.grid(row=2,column=4)
-rcatvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', text="RCA 40inch TV\n$650", command=addrca55totable)
+rcatvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="RCA 40inch TV\n$650", font=('arial', 8,'bold'),command=addrca55totable)
 rcatvBTN.grid(row=2,column=5)
-tcltvBTN = Button(wrapper1, width=13, height=5, fg='white', bg='#FF5733', text="TCL 20inch TV\n$230", command=addtcl55totable)
+tcltvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="TCL 20inch TV\n$230", font=('arial', 8,'bold'),command=addtcl55totable)
 tcltvBTN.grid(row=2,column=6)
-fifa20tvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', text="Fifa 20\n$20", command=addfifa20totable)
+fifa20tvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="Fifa 20\n$20", font=('arial', 8,'bold'),command=addfifa20totable)
 fifa20tvBTN.grid(row=3,column=0)
-fifa21tvBTN = Button(wrapper1, width=10, height=5, fg='white', bg='#FF5733', text="Fifa 21\n$90", command=addfifa21totable)
+fifa21tvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="Fifa 21\n$90", font=('arial', 8,'bold'),command=addfifa21totable)
 fifa21tvBTN.grid(row=3,column=1)
-nba2k20tvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', text="NBA 2K 20\n$20", command=addnba2k20totable)
+nba2k20tvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="NBA 2K 20\n$20", font=('arial', 8,'bold'),command=addnba2k20totable)
 nba2k20tvBTN.grid(row=3,column=2)
-nba2k21tvBTN = Button(wrapper1, width=19, height=5, fg='white', bg='#FF5733', text="NBA 2K 21\n$50", command=addnba2k21totable)
+nba2k21tvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="NBA 2K 21\n$50", font=('arial', 8,'bold'),command=addnba2k21totable)
 nba2k21tvBTN.grid(row=3,column=3)
-codbkops2tvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', text="COD Black Ops 2\n$10", command=addcodbopstotable)
+codbkops2tvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="COD Black Ops 2\n$10", font=('arial', 8,'bold'),command=addcodbopstotable)
 codbkops2tvBTN.grid(row=3,column=4)
-codmw2tvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#FF5733', text="COD MW 2\n$24", command=addcodmwtotable)
+codmw2tvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="COD MW 2\n$24", font=('arial', 8,'bold'),command=addcodmwtotable)
 codmw2tvBTN.grid(row=3,column=5)
-codcoldwartvBTN = Button(wrapper1, width=13, height=5, fg='white', bg='#FF5733', text="COD Cold War\n$100", command=addcodcoldwartotable)
+codcoldwartvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="COD Cold War\n$100", font=('arial', 8,'bold'),command=addcodcoldwartotable)
 codcoldwartvBTN.grid(row=3,column=6)
 
 totalitemsLABEL = Label(wrapper3, text="Total Items:")
@@ -567,6 +592,9 @@ grandtotalalltxtLABEL.grid(row=4,column=2)
 
 generateReceiptBTN = Button(wrapper3, fg='white', bg='#17B14D', text="Generate Receipt", command=calculateQTY)
 generateReceiptBTN.grid(row=4,column=5)
+
+clearcartBTN = Button(wrapper3, fg='white', bg='#17B14D', text="Clear Cart", command=clearcart)
+clearcartBTN.grid(row=4, column=6, padx=20,pady=10)
 
 trv = Treeview(wrapper2, columns=(1, 2, 3, 4), show="headings", height="10")
 trv.pack()
