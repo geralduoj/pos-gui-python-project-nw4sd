@@ -504,19 +504,12 @@ def calculateQTY():
 
 def clearcart():
     totalqty = 0
-    for item in orders:
-        totalqty = 0
-
-    totalitemsqtyLABEL.config(text=str(totalqty))
-
     subtotal = 0
-    for item in orders:
-        subtotal = 0
-
-        totalallsubamtLABEL.config(text=(subtotal))
-        taxTotaltxtLABEL.config(text=subtotal)
-        grandtotalalltxtLABEL.config(text=(subtotal)+subtotal)
-        #Clear cart items - will do later - monica
+    totalallsubamtLABEL.config(text=(subtotal))
+    taxTotaltxtLABEL.config(text=subtotal)
+    grandtotalalltxtLABEL.config(text=(subtotal) + subtotal)
+    orders.clear()
+    trv.delete(*trv.get_children())
 
 
 wrapper1 = LabelFrame(root, text="Items")
