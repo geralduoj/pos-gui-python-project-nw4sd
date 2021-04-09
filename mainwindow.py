@@ -505,10 +505,14 @@ def calculateQTY():
 def clearcart():
     totalqty = 0
     subtotal = 0
+    for item in orders:
+        item.quantity = 1
+        item.subtotal = 0
     totalallsubamtLABEL.config(text=(subtotal))
     taxTotaltxtLABEL.config(text=subtotal)
     grandtotalalltxtLABEL.config(text=(subtotal) + subtotal)
     orders.clear()
+    ordersname.clear()
     trv.delete(*trv.get_children())
 
 
