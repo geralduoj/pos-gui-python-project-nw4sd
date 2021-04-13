@@ -203,7 +203,6 @@ def addxbox360totable():
         ordersname.append("XBOX 360")
         updatetable(orders)
 
-
 def addlg55totable():
     subtotal = 0
     lg55 = Television("LG 55inch TV", 780)
@@ -515,8 +514,7 @@ def printReceipt():
    export_file_path = filedialog.asksaveasfilename(defaultextension='.pdf')
    pdf.save(export_file_path)
    
-   os.remove(screenshotPath)
-   
+   os.remove(screenshotPath)   
 
 def clearcart():
     totalqty = 0
