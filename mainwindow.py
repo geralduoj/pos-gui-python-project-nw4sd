@@ -395,6 +395,10 @@ def main_window():
         payment.title("Payment")
         payment.geometry("400x200")
         payment.config(bg="white")
+        fullname_label = tk.Label(payment, bg="white", text = 'Full Name: ').grid(row=0,column=0)
+        cardnumber_label = tk.Label(payment, bg="white", text =' Card Numer: ').grid(row=1,column=0)
+        expiry_label = tk.Label(payment, bg="white", text = 'Expiry Date: ').grid(row=2,column=0)
+        
 
     def calculateQTY():
         totalqty = 0
