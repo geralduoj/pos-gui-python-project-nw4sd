@@ -4,7 +4,11 @@ from tkinter import *
 from tkinter.ttk import Treeview
 import datetime as dt
 import glob
-
+import pyautogui
+from PIL import Image, ImageGrab
+from tkinter import filedialog
+import os
+    
 from classobjects import Laptop, Phone, Consoles, ConsoleGames, Television
 
 splash_screen = Tk()
@@ -198,7 +202,6 @@ def addxbox360totable():
         orders.append(xbox360)
         ordersname.append("XBOX 360")
         updatetable(orders)
-
 
 def addlg55totable():
     subtotal = 0
@@ -498,9 +501,20 @@ def calculateQTY():
     emailBTN = Button(optionsFrame, fg='black', bg='green', text="EMAIL", width=30,height=2)
     emailBTN.grid(row=1,column=0)
     
-    printBTN = Button(optionsFrame, fg='black', bg='yellow', text="Print",width=30,height=2)
+    printBTN = Button(optionsFrame, fg='black', bg='yellow', text="Print",width=30,height=2, command = printReceipt)
     printBTN.grid(row=1,column=2)
-
+    
+def printReceipt():
+   screenshot = ImageGrab.grab(bbox=(100,0,1000,1000))
+   screenshotPath = r'C:\Users\smrut\OneDrive\Desktop\Sem 4\Networking\pos-gui-python-project-nw4sd\a.png'
+   screenshot.save(screenshotPath)
+   image1 = Image.open(screenshotPath)
+   pdf = image1.convert('RGB')
+   
+   export_file_path = filedialog.asksaveasfilename(defaultextension='.pdf')
+   pdf.save(export_file_path)
+   
+   os.remove(screenshotPath)   
 
 def clearcart():
     totalqty = 0
