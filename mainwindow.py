@@ -4,8 +4,10 @@ from tkinter import *
 from PIL import ImageTk,Image
 from tkinter.ttk import Treeview
 import datetime as dt
-
 from classobjects import Laptop, Phone, Consoles, ConsoleGames, Television
+from PIL import Image, ImageGrab
+from tkinter import filedialog
+import os
 
 splash_root = Tk()
 splash_root.title("POS SYSTEM")
@@ -389,17 +391,6 @@ def main_window():
             ordersname.append("COD Cold War")
             updatetable(orders)
 
-    def paymentPG():
-        global payment
-        payment = Toplevel(root)
-        payment.title("Payment")
-        payment.geometry("400x200")
-        payment.config(bg="white")
-        fullname_label = tk.Label(payment, bg="white", text = 'Full Name: ').grid(row=0,column=0)
-        cardnumber_label = tk.Label(payment, bg="white", text =' Card Numer: ').grid(row=1,column=0)
-        expiry_label = tk.Label(payment, bg="white", text = 'Expiry Date: ').grid(row=2,column=0)
-        
-
     def calculateQTY():
         totalqty = 0
         for item in orders:
@@ -495,6 +486,19 @@ def main_window():
         ordersname.clear()
         trv.delete(*trv.get_children())
 
+    def printReceipt():
+       screenshot = ImageGrab.grab(bbox=(100,0,1000,1000))
+       screenshotPath = r'C:\Users\monic\OneDrive\Desktop\Sem 4\Networking\pos-gui-python-project-nw4sd\a.png'
+       screenshot.save(screenshotPath)
+       image1 = Image.open(screenshotPath)
+       pdf = image1.convert('RGB')
+
+       export_file_path = filedialog.asksaveasfilename(defaultextension='.pdf')
+       pdf.save(export_file_path)
+
+       os.remove(screenshotPath)
+
+
     wrapper1 = LabelFrame(root, text="Items")
     wrapper2 = LabelFrame(root, text="Orders")
     wrapper3 = LabelFrame(root, text="Totals")
@@ -586,15 +590,130 @@ def main_window():
     grandtotalalltxtLABEL = Label(wrapper3, text="0")
     grandtotalalltxtLABEL.grid(row=4, column=2)
 
+    
+    def payBTN():
+        totalqty = 0
+        for item in orders:
+            totalqty += item.quantity
+        totalitemsqtyLABEL.config(text=str(totalqty))
 
-    paymentBTN = Button(wrapper3, fg='white', bg='#17B14D', text="Payment", font=('arial', 8,'bold'), command=paymentPG)
-    paymentBTN.grid(row=4, column=5, padx=5, pady=10)
+        subtotal = 0
+        for item in orders:
+            subtotal += item.subtotal
+        totalallsubamtLABEL.config(text=str(subtotal))
+        taxTotaltxtLABEL.config(text=str(round(subtotal * 0.13, 2)))
+        grandtotalalltxtLABEL.config(text=str(round(subtotal * 0.13, 2) + subtotal))
+
+        global payment
+        payment = Toplevel(root)
+        payment.title("Payment")
+        payment.geometry("403x399")
+        payment.config(bg="white")
+
+        firstFrame = Frame(payment, height=400,width=200,bg="blue")
+        itemsFrame = Frame(payment)
+        totalsFrame = Frame(payment)
+        optionsFrame = Frame(payment)
+
+        firstFrame.pack(expand="no")
+        itemsFrame.pack(expand="no")
+        totalsFrame.pack(expand="no")
+        optionsFrame.pack(expand="yes")
+
+        labelPayment = Label(firstFrame, text='Payment Total', bg="white", fg="black", font='Times 14 bold')
+        labelPayment.grid(row=0, column=1)
+
+        paymentDetails = Treeview(itemsFrame, columns=(1, 2, 3, 4), show="headings", height="10")
+        paymentDetails.pack()
+        paymentDetails.heading(1,text="Product")
+        paymentDetails.column(1, minwidth=0, width=100, stretch=NO)
+        paymentDetails.heading(2, text="Quantity")
+        paymentDetails.column(2, minwidth=0, width=100, stretch=NO)
+        paymentDetails.heading(3, text="Price")
+        paymentDetails.column(3, minwidth=0, width=100, stretch=NO)
+        paymentDetails.heading(4, text="Subtotal")
+        paymentDetails.column(4, minwidth=0, width=100, stretch=NO)
+
+        paymentDetails.delete(*paymentDetails.get_children())
+        for i in orders:
+            paymentDetails.insert('', 'end', values=(i.name, i.quantity, i.price, (i.quantity * i.price)))
+
+
+        totalitemsPayment = Label(totalsFrame, text="Total Items:")
+        totalitemsPayment.grid(row=0, column=1)
+        totalitemsqtyPayment = Label(totalsFrame, text=str(totalqty))
+        totalitemsqtyPayment.grid(row=0, column=2)
+
+        totalallPayment = Label(totalsFrame, text="Sub Total:")
+        totalallPayment.grid(row=0, column=3)
+        totalallsubamtPayment = Label(totalsFrame, text=str(subtotal))
+        totalallsubamtPayment.grid(row=0, column=4)
+
+        taxTotalPayment = Label(totalsFrame, text="HST (13%):")
+        taxTotalPayment.grid(row=1, column=1)
+        taxTotaltxtPayment = Label(totalsFrame, text=str(round(subtotal * 0.13, 2)))
+        taxTotaltxtPayment.grid(row=1, column=2)
+
+        grandtotalallPayment = Label(totalsFrame, text="Grand Total:")
+        grandtotalallPayment.grid(row=1, column=3)
+        grandtotalalltxtPayment = Label(totalsFrame, text=str(round(subtotal * 0.13, 2) + subtotal))
+        grandtotalalltxtPayment.grid(row=1, column=4)
+
+        def cash():
+            cashpay = Tk()
+            cashpay.geometry("340x125")
+            patd = Button(cashpay, text='Pay at Door', padx=50, pady=50, command=calculateQTY)
+            patd.grid(row=0,column=0)
+            patd = Button(cashpay, text='Pay at Store', padx=50,pady=50, command=calculateQTY)
+            patd.grid(row=0,column=1)
+
+        def credit():
+            #def thanks():
+             #   p2label = Label(root, text="Thank you")
+              #  p2label.grid(row=7,column=0, columnspan=3)
+            root=Tk()
+            paybutton = Button(root, text="Pay!", padx=20, fg="white", bg="red", command=lambda:[calculateQTY(), root.destroy()])
+            paybutton.grid(row=6,column=0, columnspan=3)
+            paylabel1 = Label(root, text="Full Name: ")
+            paylabel1.grid(row=3,column=0)
+            paylabel2 = Label(root, text="Account Number: ")
+            paylabel2.grid(row=4,column=0)
+            paylabel3 = Label(root, text="Expiry Date: ")
+            paylabel3.grid(row=5,column=0)
+            e1 = Entry(root, width=20, fg="black", bg="white", borderwidth=5)
+            e1.grid(row=3, column=1)
+            e1.get()
+            e2 = Entry(root, width=20, fg="black", bg="white", borderwidth=5)
+            e2.grid(row=4, column=1)
+            e2.get()
+            e3 = Entry(root, width=20, fg="black", bg="white", borderwidth=5)
+            e3.grid(row=5, column=1)
+            e3.get()
+            e1.insert(0, "Name")
+            e2.insert(0, "16 Digits")
+            e3.insert(0, "MM/YY")
+            
+
+        cashBTN = Button(optionsFrame, text="CASH",padx=10,pady=10,command=cash)
+        cashBTN.grid(row=0,column=0)
+        creditBTN = Button(optionsFrame, text="Credit",padx=10,pady=10,command=credit)
+        creditBTN.grid(row=0,column=1)
+        debitBTN = Button(optionsFrame, text="Debit",padx=10,pady=10)
+        debitBTN.grid(row=0,column=2)
+        gcBTN = Button(optionsFrame, text="Gift Card",padx=10,pady=10)
+        gcBTN.grid(row=0,column=3)
+        cancelBTN = Button(optionsFrame, text="Cancel",padx=10,pady=10,command=lambda:[payment.destroy(), clearcart()])
+        cancelBTN.grid(row=0,column=4)
+
+    paymentBTN = Button(wrapper3, fg='white', bg='red', text="Payment", font=('arial', 8,'bold'), command=payBTN)
+    paymentBTN.grid(row=5, column=1)
 
     generateReceiptBTN = Button(wrapper3, fg='white', bg='#17B14D', text="Generate Receipt", font=('arial', 8,'bold'), command=calculateQTY)
-    generateReceiptBTN.grid(row=4, column=6)
+    generateReceiptBTN.grid(row=5, column=2)
     
     clearcartBTN = Button(wrapper3, fg='white', bg='#17B14D', text="Clear Cart", font=('arial', 8,'bold'), command=clearcart)
-    clearcartBTN.grid(row=4, column=7, padx=5, pady=10)
+    clearcartBTN.grid(row=5, column=3, padx=5)
+
 
     trv = Treeview(wrapper2, columns=(1, 2, 3, 4), show="headings", height="10")
     trv.pack()
@@ -604,7 +723,7 @@ def main_window():
     trv.heading(4, text="Subtotal per Product")
 
     root.title("POS System")
-    root.geometry("850x700")
+    root.geometry("850x700+0+0")
 
 
 splash_root.after(1500, main_window)
