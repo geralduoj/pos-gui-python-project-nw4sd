@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
-from PIL import ImageTk,Image
 from tkinter.ttk import Treeview
 import datetime as dt
-from classobjects import Laptop, Phone, Consoles, ConsoleGames, Television
+import glob
+import pyautogui
 from PIL import Image, ImageGrab
 from tkinter import filedialog
 import os
@@ -486,17 +486,18 @@ def main_window():
         ordersname.clear()
         trv.delete(*trv.get_children())
 
+    
     def printReceipt():
-       screenshot = ImageGrab.grab(bbox=(100,0,1000,1000))
-       screenshotPath = r'C:\Users\monic\OneDrive\Desktop\Sem 4\Networking\pos-gui-python-project-nw4sd\a.png'
-       screenshot.save(screenshotPath)
-       image1 = Image.open(screenshotPath)
-       pdf = image1.convert('RGB')
+        screenshot = ImageGrab.grab(bbox=(100,0,1000,1000))
+        screenshotPath = r'C:\Users\smrut\OneDrive\Desktop\Sem 4\Networking\pos-gui-python-project-nw4sd\a.png'
+        screenshot.save(screenshotPath)
+        image1 = Image.open(screenshotPath)
+        pdf = image1.convert('RGB')
+   
+        export_file_path = filedialog.asksaveasfilename(defaultextension='.pdf')
+        pdf.save(export_file_path)
 
-       export_file_path = filedialog.asksaveasfilename(defaultextension='.pdf')
-       pdf.save(export_file_path)
-
-       os.remove(screenshotPath)
+        os.remove(screenshotPath) 
 
 
     wrapper1 = LabelFrame(root, text="Items")
@@ -540,7 +541,7 @@ def main_window():
     samsungtvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="Samsung 55inch TV\n$780", font=('arial', 8,'bold'),command=addsamsung55totable)
     samsungtvBTN.grid(row=2,column=3)
     
-    sharptvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="Sharp 40inch TV\nn$650", font=('arial', 8,'bold'), command=addsharp55totable)
+    sharptvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="Sharp 40inch TV\n$650", font=('arial', 8,'bold'), command=addsharp55totable)
     sharptvBTN.grid(row=2,column=4)
     
     rcatvBTN = Button(wrapper1, width=15, height=5, fg='white', bg='#fa3a3a', text="RCA 40inch TV\n$650", font=('arial', 8,'bold'),command=addrca55totable)
