@@ -485,6 +485,14 @@ def main_window():
         orders.clear()
         ordersname.clear()
         trv.delete(*trv.get_children())
+    
+    def closeCart():
+        root.destroy()
+        thanks = Tk()
+        thanks.geometry("340x125")
+        thanksTxt = Label(thanks, text='Thank you for shopping\nPlease don\'t forget your receipt', padx=50, pady=50)
+        thanksTxt.grid(row=0,column=0)
+       
 
     
     def printReceipt():
@@ -797,8 +805,10 @@ def main_window():
     generateReceiptBTN.grid(row=5, column=2)
     
     clearcartBTN = Button(wrapper3, fg='white', bg='#17B14D', text="Clear Cart", font=('arial', 8,'bold'), command=clearcart)
-    clearcartBTN.grid(row=5, column=3, padx=5)
+    clearcartBTN.grid(row=5, column=3)
 
+    quitBTN = tk.Button(wrapper3, fg='white', bg='#060606', text="Close cart", font=('arial', 8,'bold'), command=closeCart)
+    quitBTN.grid(row=5, column=4, padx=5)
 
     trv = Treeview(wrapper2, columns=(1, 2, 3, 4), show="headings", height="10")
     trv.pack()
